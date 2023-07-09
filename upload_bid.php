@@ -10,40 +10,23 @@
     if (isset($_REQUEST['item_name']) ) 
         
        {
-        $statusMsg = 0;
+        $filename= $_FILES["uploadfile"]["name"];
+$tempname= $_FILES["uploadfile"]["tmp_name"];
+$folder="uploads/".$filename;
+if(!file_exists($folder))
 
-
-// File upload path
-$targetDir = "C:/xampp_install/htdocs/phpfiles/uploads/";
-$fileName = basename($_REQUEST["file"]);
-$targetFilePath = $targetDir . $fileName;
-
-$fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
-
-if(isset($_REQUEST["file"])){
-    // Allow certain file formats
-    $allowTypes = array('jpg','png','jpeg','gif','pdf');
-    if (!file_exists($targetFilePath)) {
-        if(in_array($fileType, $allowTypes)){
-            
-                // Upload file to server
-                $files=$_REQUEST["file"];
-              
-                //if(move_uploaded_file($files, $targetFilePath))
-                {
-                // Insert image file name into database
-               
-                $insert = $db->query("INSERT into images (file_name, uploaded_on) VALUES ('".$fileName."', NOW())");
-                if($insert){
-                    $statusMsg = 1;
-                }}
-               
-            
-        }
-    }
+move_uploaded_file($tempname,$folder);
+else
+{
+    ?>
+    <script>
+        alert("file name already exist");
+        window.location.href = "dashboard.php";
+        </script>
+        <?php
 }
-        if($statusMsg==1)
-        {
+        
+    
         $itemname = $_REQUEST['item_name'];
         $starttime = $_REQUEST['start_time'];
         $endtime = $_REQUEST['end_time'];
@@ -51,7 +34,7 @@ if(isset($_REQUEST["file"])){
         $enddate = $_REQUEST['enddate'];
         $basevalue = $_REQUEST['base_value'];
         $iteminfo = $_REQUEST['item_info'];
-        $picture=$fileName;
+        $picture=$filename;
        $query    = "INSERT into `upcoming_data`(`ItemName`, `BaseValue`, `StartTime`, `EndTime`, `StartDate`, `EndDate`, `Description`, `Image`)VALUES ( '$itemname','$basevalue','$starttime','$endtime','$startdate','$enddate','$iteminfo','$picture')";
         $result   = mysqli_query($conn, $query);
         if ($result) {
@@ -73,18 +56,11 @@ if(isset($_REQUEST["file"])){
         }
         
     }
-    else{
-        ?>
-   
-    <script>
-        alert("Error in upload");
-        </script>
-         <?php
-    }
-    }
+ 
+    
      else {
 ?>
-    <form name="uploaddata" action="" method="post">
+    <form name="uploaddata" action="" method="post" enctype="multipart/form-data">
         <h2>Item Name</h2>
         <input type="text"  name="item_name" placeholder="Username" required />
         <h2 >Base Value</h2>
@@ -104,7 +80,7 @@ if(isset($_REQUEST["file"])){
         <br>
         <h2>Photo Upload</h2>
         
-      <input type="file" name="file">
+      <input type="file" name="uploadfile">
    
   <br><br><br><br><br>
         <input  type="submit" value="submit" >
