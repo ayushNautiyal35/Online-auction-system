@@ -66,7 +66,8 @@
       else
       echo "Sold";
       ?></td>
-      <td><?php echo $data['Image']??''; ?></td>  
+             <?php $folder="uploads/".$data['Image']; ?>
+      <td><?php echo "<img src='$folder' height='50px'>"; ?></td>
      </tr>
      <?php
       }}else{ ?>
