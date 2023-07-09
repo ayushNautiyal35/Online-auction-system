@@ -72,21 +72,12 @@
       <td><?php echo $data['EndDate']??''; ?></td>
       <td><?php echo $data['Description']??''; ?></td>
        
-    <?php
-     include("auction_data_database.php");
-   $query = $db->query("SELECT file_name FROM images ORDER BY uploaded_on DESC");
-   if($query->num_rows > 0){
-       $row = $query->fetch_assoc();
-           $imageURL = 'C:/xampp_install/htdocs/phpfiles/uploads/'.$row["file_name"];
-   
-   ?>
-  
-       <img src="<?php= $imageURL; ?>" />
-
+      <?php $folder="uploads/".$data['Image']; ?>
+      <td><?php echo "<img src='$folder' height='50px'>"; ?></td>
     
      </tr>
      <?php
-      }}}else{ ?>
+      }}else{ ?>
       <tr>
         <td colspan="8">
     <?php echo $fetch; ?>
