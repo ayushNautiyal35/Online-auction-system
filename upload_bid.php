@@ -14,17 +14,9 @@
 $tempname= $_FILES["uploadfile"]["tmp_name"];
 $folder="uploads/".$filename;
 if(!file_exists($folder))
-
-move_uploaded_file($tempname,$folder);
-else
 {
-    ?>
-    <script>
-        alert("file name already exist");
-        window.location.href = "dashboard.php";
-        </script>
-        <?php
-}
+move_uploaded_file($tempname,$folder);
+
         
     
         $itemname = $_REQUEST['item_name'];
@@ -56,6 +48,18 @@ else
         }
         
     }
+    else
+{
+    
+    ?>
+    
+    <script>
+        alert("file name already exist");
+        window.location.href = "dashboard.php";
+        </script>
+        <?php
+}
+}
  
     
      else {
