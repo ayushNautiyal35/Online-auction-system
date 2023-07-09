@@ -50,6 +50,7 @@
          <th>End DAte</th>
          <th>End_time</th>
          <th>base_value</th>
+         <th>Image</th>
          <th>item_info</th>
 </tr>
     
@@ -65,6 +66,8 @@
       
       <td><?php echo $data['BaseValue']??''; ?></td>
       <td><?php echo $data['Description']??''; ?></td>  
+      <?php $folder="uploads/".$data['Image']; ?>
+      <td><?php echo "<img src='$folder' height='50px'>"; ?></td>
       <td><?php echo '<a id="grey" href="intersted.php?id='.$data['ItemId'].'">'.'Interested'.'</a>'; ?> </td>
      </tr>
      <?php
