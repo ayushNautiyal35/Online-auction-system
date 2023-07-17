@@ -7,4 +7,4 @@ Steps to proceed for the project:
 5.Select for the login.php file and enter credentials and if not registerd please register.
 6.Finaly enter the data.
 
-To see the full working and documentation refer to info.pdf .
+To see the full working and documentation refer to info.docx.
